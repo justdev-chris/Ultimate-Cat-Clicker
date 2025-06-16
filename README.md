@@ -1,4 +1,4 @@
-# 🐾 Cat Clicker: PURRstige Edition™ 
+# 🐾 Cat Clicker: PURRstige Edition
 
 Welcome to **Cat Clicker: PURRstige Edition™**, the *purr*-fect blend of chaos, charm, and cat-tastic tapping! 👑
 
