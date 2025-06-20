@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('uccbgload.png');
+            background-size: 100% 100%;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.2), rgba(0,0,0,0));
+            pointer-events: none;
+        }
+
+        .datetime {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: #00ff88;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            font-family: monospace;
+            z-index: 100;
+        }
+
+        .user-info {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #00ff88;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            font-family: monospace;
+            z-index: 100;
+        }
+
+        .loading-container {
+            text-align: center;
+            position: relative;
+            background: rgba(26, 26, 46, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            z-index: 1;
+        }
+
+        .loading-text {
+            color: #fff;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ffee);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shimmer 1.5s infinite;
+        }
+
+        .percentage {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .button-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .play-button {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #00ff88, #00ffee);
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .play-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="datetime" id="datetime"></div>
+    <div class="user-info" id="userInfo"></div>
+    
+    <div class="loading-container">
+        <div class="loading-text">Loading</div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <div class="percentage">0%</div>
+        <div class="button-container">
+            <button class="play-button" onclick="window.location.href='game.html'">Play</button>
+            <button class="play-button" onclick="window.location.href='chapter2.html'">Chapter 2</button>
+        </div>
+    </div>
+
+    <script>
+        // Update datetime function
+        function updateDateTime() {
+            const now = new Date();
+            const formatted = now.getUTCFullYear() + '-' + 
+                            String(now.getUTCMonth() + 1).padStart(2, '0') + '-' +
+                            String(now.getUTCDate()).padStart(2, '0') + ' ' +
+                            String(now.getUTCHours()).padStart(2, '0') + ':' +
+                            String(now.getUTCMinutes()).padStart(2, '0') + ':' +
+                            String(now.getUTCSeconds()).padStart(2, '0');
+            document.getElementById('datetime').textContent = formatted;
+        }
+
+        // Update user info
+        document.getElementById('userInfo').textContent = 'A game by: justdev-chris';
+
+        // Update time every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Loading animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const progress = document.querySelector('.progress');
+            const percentage = document.querySelector('.percentage');
+            const loadingText = document.querySelector('.loading-text');
+            const buttonContainer = document.querySelector('.button-container');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            let currentProgress = 0;
+            const duration = 10000; // 10 seconds
+            const interval = 50; // Update every 50ms
+            const steps = duration / interval;
+            const increment = 100 / steps;
+
+            const updateProgress = () => {
+                currentProgress += increment;
+                const roundedProgress = Math.min(Math.round(currentProgress), 100);
+                
+                progress.style.width = `${roundedProgress}%`;
+                percentage.textContent = `${roundedProgress}%`;
+
+                if (roundedProgress >= 100) {
+                    setTimeout(() => {
+                        loadingText.classList.add('fade-out');
+                        progressBar.classList.add('fade-out');
+                        percentage.classList.add('fade-out');
+                        
+                        setTimeout(() => {
+                            buttonContainer.style.display = 'block';
+                        }, 500);
+                    }, 200);
+                    
+                    clearInterval(progressInterval);
+                }
+            };
+
+            const progressInterval = setInterval(updateProgress, interval);
+
+            // Add button click effect
+            document.querySelectorAll('.play-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.05)';
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
