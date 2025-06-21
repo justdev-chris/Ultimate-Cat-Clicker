@@ -8,7 +8,7 @@ By using, downloading, or hosting this project, you agree to the following terms
 
 ## ✅ You ARE allowed to:
 
-- **Download and host** this game on your own personal or public website (e.g., GitHub Pages), as long as you provide **clear credit** to the original creator: [YourDevAliasHere]
+- **Download and host** this game on your own personal or public website (e.g., GitHub Pages), as long as you provide **clear credit** to the original creator: jusstdev-chris
 - **Use the code for learning purposes**
 - **Share the game with others**, as long as the original credits remain intact
 
@@ -28,7 +28,7 @@ By using, downloading, or hosting this project, you agree to the following terms
 
 If you share or host the game, you must include the following visible credit:
 
-> "Originally created by justdev-chris. Full source available at https://github.com/justdev-chris/UCC-Fishing-Edition/"
+> "Originally created by justdev-chris. Full source available at https://github.com/justdev-chris/Ultimate-Cat-Clicker/"
 or leave the credits page the game already has alone.
 
 ---
