@@ -8,7 +8,7 @@ By using, downloading, or hosting this project, you agree to the following terms
 
 ## ✅ You ARE allowed to:
 
-- **Download and host** this game on your own personal or public website (e.g., GitHub Pages), as long as you provide **clear credit** to the original creator: jusstdev-chris
+- **Download and host** this game on your own personal or public website (e.g., GitHub Pages), as long as you provide **clear credit** to the original creator: justdev-chris
 - **Use the code for learning purposes**
 - **Share the game with others**, as long as the original credits remain intact
 
