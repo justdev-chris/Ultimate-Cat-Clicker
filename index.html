@@ -1,6 +1,179 @@
-If you have downloaded any of these UCC files and their versions and is planning to fork my repo or host it on another site please do not take credit of my work, 
-or js try modify the credits to say it was your work. Yes, Ultimate Cat Clicker is a project made by me (justdev-chris) and hoping no one takes credit of my work.
-If you want to play my game either go to https://justdev-chris.itch.io/ucc-html5 or the link in the description. I have made this huge project come true with the
-help of replit and other sites like github and etc. UCC can be runned locally and can be hosted on static websites or github-pages. As I continue make updates I'm 
-waiting for any feedback from yall and hoping to make this little fun project (Ultimate Cat Clicker) succeed. Thank you for reading this. - justdev-chris
-READ LICENSE.md BEFORE DOWNLOADING MY GAME.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ultimate Cat Clicker — Important Notice</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:wght@400;700&display=swap');
+
+  :root {
+    --cat-pink: #f4c2c2;
+    --cat-purple: #b49fcc;
+    --cat-cream: #fff5e1;
+    --cat-dark: #3a2e3b;
+    --cat-gray: #7a7480;
+    --paw-size: 2rem;
+    --whisker-length: 3rem;
+  }
+
+  body {
+    background: linear-gradient(135deg, var(--cat-pink) 0%, var(--cat-cream) 100%);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--cat-dark);
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .notice-container {
+    background: white;
+    max-width: 720px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(58, 46, 59, 0.25);
+    padding: 2.5rem 3rem;
+    position: relative;
+  }
+
+  /* Cat ears top */
+  .notice-container::before,
+  .notice-container::after {
+    content: '';
+    position: absolute;
+    top: -40px;
+    width: 80px;
+    height: 80px;
+    background: var(--cat-purple);
+    border-radius: 50% 50% 20% 20% / 60% 60% 20% 20%;
+    transform: rotate(25deg);
+    box-shadow: inset -10px 0 15px rgba(255 255 255 / 0.3);
+  }
+  .notice-container::after {
+    left: auto;
+    right: 40px;
+    transform: rotate(-25deg);
+    box-shadow: inset 10px 0 15px rgba(255 255 255 / 0.3);
+  }
+  .notice-container::before {
+    left: 40px;
+  }
+
+  h1 {
+    font-family: 'Indie Flower', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--cat-purple);
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+  }
+
+  p strong {
+    color: var(--cat-purple);
+    font-weight: 700;
+  }
+
+  a {
+    color: var(--cat-purple);
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+  }
+
+  a::after {
+    content: '🐾';
+    position: absolute;
+    right: -1.6rem;
+    top: 0;
+    font-size: 1.2rem;
+    animation: paw-wave 2s infinite ease-in-out alternate;
+  }
+
+  @keyframes paw-wave {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-6px); }
+  }
+
+  .paw-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 1.2rem;
+  }
+  .paw {
+    width: var(--paw-size);
+    height: var(--paw-size);
+    background: var(--cat-pink);
+    border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+    position: relative;
+    box-shadow: inset 2px 4px 6px rgba(255 255 255 / 0.6);
+  }
+  .paw::before, .paw::after {
+    content: '';
+    position: absolute;
+    background: var(--cat-pink);
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    top: -25%;
+    box-shadow: inset 1px 2px 3px rgba(255 255 255 / 0.5);
+  }
+  .paw::before {
+    left: 5%;
+  }
+  .paw::after {
+    right: 5%;
+  }
+
+  /* Whiskers under container */
+  .whiskers {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .whisker {
+    border-top: 2px solid var(--cat-purple);
+    width: var(--whisker-length);
+    border-radius: 10px;
+  }
+  .whisker.middle {
+    width: calc(var(--whisker-length) * 1.4);
+    border-top-width: 3px;
+  }
+</style>
+</head>
+<body>
+  <section class="notice-container" role="alert">
+    <h1>Important Notice from justdev-chris</h1>
+    <p>If you have downloaded any of these <strong>UCC files</strong> and their versions and are planning to fork my repo or host it on another site, please do <strong>not</strong> take credit of my work, or try to modify the credits to say it was your work.</p>
+    <p>Yes, <strong>Ultimate Cat Clicker</strong> is a project made by me (<em>justdev-chris</em>) and I hope no one takes credit for my work.</p>
+    <p>If you want to play my game, either go to <a href="https://justdev-chris.itch.io/ucc-html5" target="_blank" rel="noopener noreferrer">https://justdev-chris.itch.io/ucc-html5</a> or use the link in the description.</p>
+    <p>I have made this huge project come true with the help of Replit and other sites like GitHub and more. <strong>UCC</strong> can be run locally and can be hosted on static websites or GitHub Pages.</p>
+    <p>As I continue to make updates, I’m waiting for any feedback from y’all and hoping to make this little fun project (<em>Ultimate Cat Clicker</em>) succeed. Thank you for reading this. <br />- justdev-chris</p>
+    <p><strong>READ LICENSE.md BEFORE DOWNLOADING MY GAME.</strong></p>
+    <div class="paw-container" aria-hidden="true">
+      <div class="paw"></div>
+      <div class="paw"></div>
+      <div class="paw"></div>
+      <div class="paw"></div>
+      <div class="paw"></div>
+    </div>
+    <div class="whiskers" aria-hidden="true">
+      <div class="whisker"></div>
+      <div class="whisker middle"></div>
+      <div class="whisker"></div>
+    </div>
+  </section>
+</body>
+</html>
