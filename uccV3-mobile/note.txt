@@ -1,0 +1,1 @@
+Mobile versions are in beta testing, the game does work after testing but there may be bugs. Download the apk and open it, you will be prompted to download an app or you will have to enable downloading from unknown sources. Then click install.
