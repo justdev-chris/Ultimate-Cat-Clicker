@@ -9,7 +9,7 @@ Welcome to the purr-fectly chaotic clicker game — now available as a cozy offl
 - Just unzip, launch, and start clickin’ 🐟
 
 🧠 HOW TO PLAY:
-1. Double-click `UCC_Launcher.exe` to launch the game.
+1. Double-click `Ultimate Cat Clicker.exe` to launch the game.
 2. Click the fishies and upgrade your cat empire!
 3. Press `F11` for fullscreen snuggles.
 
