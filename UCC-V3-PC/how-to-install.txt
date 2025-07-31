@@ -1,0 +1,3 @@
+Go to justdev-chris.itch.io/ucc-platforms.
+In downloads download the zip file named "UCC-PC-release.zip" 
+Extract the zip and run Ultimate Cat Clicker.exe
