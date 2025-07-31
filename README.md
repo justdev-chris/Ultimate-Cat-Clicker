@@ -27,5 +27,5 @@ In this addicting clicker-meets-adventure game, you start off as a broke alley c
 
 ---
 
-## Made with <3 by the Ultimate Cat Clicker Team (or Chris)
+## Made with <3 by justdev-chris
 Ultimate Cat Clicker V3 js released, will update later on stay tuned for updates.
