@@ -1,6 +1,6 @@
-# 🐾 Cat Clicker: PURRstige Edition
+# 🐾 Ultimate Cat Clicker
 
-Welcome to **Cat Clicker: PURRstige Edition™**, the *purr*-fect blend of chaos, charm, and cat-tastic tapping! 👑
+Welcome to **Ultimate Cat Clicker**, the *purr*-fect blend of chaos, charm, and cat-tastic tapping! 👑
 
 This isn't your ordinary clicker game. Dive whiskers-first into a pixel-art world full of mystery, upgrades, monsters, and rich feline lore. Built entirely with HTML5, this game runs in the browser — no installs, no hassle. Just you, your paws, and a kingdom to conquer.
 
