@@ -1,6 +1,6 @@
-# 🐾 UCC Custom License by justdev-chris
+# 🐾 UCC License by justdev-chris
 
-This game and its source code are protected by a custom license created by the original developer.
+This game and its source code are protected by a license created by the original developer.
 
 By using, downloading, or hosting this project, you agree to the following terms:
 
