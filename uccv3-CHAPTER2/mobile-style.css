@@ -1,0 +1,275 @@
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== Stars Animation ===== */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ===== Lore Screen ===== */
+#loreScreen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+  background-size: 400% 400%;
+  animation: gradientShift 3s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  padding: 20px;
+}
+
+#loreScreen h2 {
+  font-size: 2em;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  animation: bounce 2s infinite;
+}
+
+#loreScreen p {
+  max-width: 90%;
+  margin: 10px;
+  font-size: 1em;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+#loreScreen button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 1em;
+}
+
+/* ===== Screens ===== */
+.screen {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* ===== Credits ===== */
+.credits-content {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 15px;
+  max-width: 350px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.credits-content h2 {
+  color: #4ecdc4;
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.credits-content p {
+  margin-bottom: 10px;
+  line-height: 1.4;
+  font-size: 1em;
+}
+
+.credits-list li {
+  margin: 6px 0;
+  padding-left: 10px;
+}
+
+/* ===== Minigame ===== */
+.minigame-container {
+  width: 95%;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.minigame-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  gap: 4px;
+  justify-content: center;
+  margin: 10px auto;
+}
+
+.minigame-cell {
+  width: 50px;
+  height: 50px;
+  font-size: 1.2em;
+}
+
+/* ===== Multiplayer ===== */
+.multiplayer-container {
+  flex-direction: column;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.player-card {
+  width: 95%;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 0.9em;
+}
+
+.online-indicator {
+  width: 8px;
+  height: 8px;
+}
+
+/* ===== Nav Buttons ===== */
+.nav-buttons {
+  top: 15px;
+  left: 15px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-btn {
+  padding: 8px 12px;
+  font-size: 0.8em;
+}
+
+/* ===== Container & Headings ===== */
+.container {
+  padding: 80px 15px 15px;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 20px 0;
+}
+
+/* ===== Clicker ===== */
+#clicker {
+  width: 150px;
+  height: 150px;
+}
+
+#clicker img {
+  border-radius: 8px;
+}
+
+/* ===== Stats ===== */
+#stats {
+  font-size: 1em;
+  padding: 15px;
+}
+
+/* ===== Shop ===== */
+.shop {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.item {
+  width: 95%;
+  max-width: 300px;
+  padding: 15px;
+  font-size: 0.95em;
+}
+
+/* ===== Panels ===== */
+.game-panels {
+  grid-template-columns: 1fr;
+  margin: 20px 5px;
+}
+
+.panel {
+  padding: 15px;
+}
+
+/* ===== Slideshows ===== */
+.slide-image {
+  width: 90%;
+  max-width: 250px;
+  height: 150px;
+}
+
+.slideshow-controls {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slide-btn {
+  padding: 8px 12px;
+  font-size: 0.8em;
+}
+
+/* ===== Adventure & Battle ===== */
+#adventureContainer h1 {
+  font-size: 1.6em;
+}
+
+#adventureStats {
+  font-size: 0.9em;
+}
+
+#creditsText {
+  font-size: 1em;
+  width: 95%;
+}
+
+#battleArea {
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ===== Achievements ===== */
+.achievement {
+  top: 15px;
+  right: 15px;
+  padding: 10px;
+  font-size: 1em;
+}
+
+/* ===== Floating Fish ===== */
+.floating-fish {
+  font-size: 1.5em;
+}
