@@ -315,5 +315,32 @@
   <script src="js/minigames/memory.js"></script>
   <script src="js/minigames/fishing.js"></script>
   <script src="js/adventure/adventure.js"></script>
+  <script>
+  window.addEventListener('load', () => {
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    const overlay = document.createElement('div');
+    overlay.id = 'rotateOverlay';
+    overlay.innerHTML = `
+      <div class="rotateMessage">
+        📱 Please turn your device sideways for the best experience! 🐾
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    function checkOrientation() {
+      if (window.innerWidth > window.innerHeight) {
+        overlay.style.display = 'none';
+      } else {
+        overlay.style.display = 'flex';
+      }
+    }
+
+    window.addEventListener('resize', checkOrientation);
+    checkOrientation();
+  }
+});
+</script>
 </body>
 </html>
