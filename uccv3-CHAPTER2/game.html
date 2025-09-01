@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +30,8 @@
     <p>
       Will you become the ultimate Cat Clicking Champion and restore Whiskers to their full glory? The fate of all cat-kind rests in your clicking fingers! 🐾✨
     </p>
-    <button onclick="startGame()">🚀 Accept the Sacred Quest! 🐾</button>
+    <!-- Call existing startGame() (handled in your JS files) + the new alert -->
+    <button onclick="startGame(); startGameAlert()">🚀 Accept the Sacred Quest! 🐾</button>
   </div>
 
   <!-- Credits Screen -->
@@ -317,31 +317,9 @@
   <script src="js/minigames/fishing.js"></script>
   <script src="js/adventure/adventure.js"></script>
   <script>
-  window.addEventListener('load', () => {
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-  if (isMobile) {
-    const overlay = document.createElement('div');
-    overlay.id = 'rotateOverlay';
-    overlay.innerHTML = `
-      <div class="rotateMessage">
-        📱 Please turn your device sideways for the best experience! 🐾
-      </div>
-    `;
-    document.body.appendChild(overlay);
-
-    function checkOrientation() {
-      if (window.innerWidth > window.innerHeight) {
-        overlay.style.display = 'none';
-      } else {
-        overlay.style.display = 'flex';
-      }
+    function startGameAlert() {
+      alert("📱 Please turn your device sideways for the best experience! 🐾");
     }
-
-    window.addEventListener('resize', checkOrientation);
-    checkOrientation();
-  }
-});
-</script>
+  </script>
 </body>
 </html>
