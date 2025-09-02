@@ -6,20 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="mobile-style.css" media="(max-width: 768px)">
+  <style>
+    /* Leaderboard panel styling */
+    #leaderboardPanel {
+      display: none;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: 20px auto;
+      text-align: center;
+    }
+    #leaderboardList li.top-score {
+      color: gold;
+      animation: sparkle 1s infinite alternate;
+    }
+    @keyframes sparkle {
+      0% { text-shadow: 0 0 5px gold; }
+      50% { text-shadow: 0 0 15px gold; }
+      100% { text-shadow: 0 0 5px gold; }
+    }
+  </style>
 </head>
 <body>
   <div class="stars"></div>
 
   <!-- Navigation Buttons -->
   <div class="nav-buttons">
-    <button class="nav-btn" onclick="showScreen('game')">🎮 Game</button>
-    <button class="nav-btn" onclick="showScreen('minigames')">🎯 Mini Games</button>
+    <button class="nav-btn" onclick="showScreen('gameContainer')">🎮 Game</button>
+    <button class="nav-btn" onclick="showScreen('minigamesScreen')">🎯 Mini Games</button>
     <button class="nav-btn" onclick="startAdventure()">🏰 Adventure</button>
-    <button class="nav-btn" onclick="showScreen('credits')">📜 Credits</button>
+    <button class="nav-btn" onclick="showScreen('creditsScreen')">📜 Credits</button>
+    <button class="nav-btn" onclick="showLeaderboard()">🏆 Leaderboard</button>
   </div>
 
   <!-- Lore Screen -->
-  <div id="loreScreen">
+  <div id="loreScreen" class="screen">
     <h2>🐱 The Legend of Whiskers the Eternal 🌟</h2>
     <p>
       Long ago, Whiskers Nemesis possessed infinite power to generate fish treats through pure feline magic. But an evil vacuum cleaner sealed away this power, scattering it across dimensions.
@@ -30,7 +53,6 @@
     <p>
       Will you become the ultimate Cat Clicking Champion and restore Whiskers to their full glory? The fate of all cat-kind rests in your clicking fingers! 🐾✨
     </p>
-    <!-- Call existing startGame() (handled in your JS files) + the new alert -->
     <button onclick="startGame(); startGameAlert()">🚀 Accept the Sacred Quest! 🐾</button>
   </div>
 
@@ -58,7 +80,7 @@
       <p><strong>Thank you for playing my game! I hope you enjoyed it!</strong></p>
       <p><em>-The Ultimate Cat Clicker Team</em></p>
 
-      <button class="nav-btn" onclick="showScreen('game')" style="margin-top: 20px;">🎮 Back to Game</button>
+      <button class="nav-btn" onclick="showScreen('gameContainer')" style="margin-top: 20px;">🎮 Back to Game</button>
     </div>
   </div>
 
@@ -69,7 +91,7 @@
       <p>Remember the pattern of glowing cats! Score: <span id="memoryScore">0</span></p>
       <div class="minigame-grid" id="memoryGrid"></div>
       <button class="nav-btn" onclick="startMemoryGame()">🎮 Start Game</button>
-      <button class="nav-btn" onclick="showScreen('game')">🏠 Back to Main</button>
+      <button class="nav-btn" onclick="showScreen('gameContainer')">🏠 Back to Main</button>
     </div>
 
     <div class="minigame-container">
@@ -80,6 +102,15 @@
         <div id="fishCatchTimer" style="position: absolute; top: 10px; right: 10px; font-weight: bold;">30s</div>
       </div>
       <button class="nav-btn" onclick="startFishCatch()">🎮 Start Fishing</button>
+    </div>
+  </div>
+
+  <!-- Leaderboard Panel -->
+  <div class="panel" id="leaderboardPanel">
+    <h3>🏆 Interdimensional Leaderboard</h3>
+    <ol id="leaderboardList"></ol>
+    <div style="margin-top:10px;">
+      <button class="nav-btn" onclick="showScreen('gameContainer')">🏠 Back to Game</button>
     </div>
   </div>
 
@@ -134,8 +165,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Villain Invasion Alert -->
+<!-- Villain Invasion Alert -->
     <div id="villainInvasion" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(45deg, #ff6b6b, #ff4757); color: white; padding: 30px; border-radius: 20px; z-index: 2000; text-align: center; border: 3px solid #fff;">
       <h2>🦹‍♂️ VILLAIN CAT INVASION! 🦹‍♂️</h2>
       <p>Sum dum ahh villain cat is trying to steal your fish!</p>
@@ -316,10 +346,66 @@
   <script src="js/minigames/memory.js"></script>
   <script src="js/minigames/fishing.js"></script>
   <script src="js/adventure/adventure.js"></script>
+
   <script>
+    let playerName = "";
+    let totalClicks = 0;
+    let leaderboardInterval;
+
     function startGameAlert() {
       alert("📱 Please turn your device sideways for the best experience! 🐾");
+    }
+
+    function askUsername() {
+      if(!playerName) {
+        playerName = prompt("🐾 Enter your username for the leaderboard:", "");
+        if(!playerName) playerName = "Anonymous Cat";
+      }
+    }
+
+    function clickCat() {
+      totalClicks++;
+      document.getElementById('totalClicks').innerText = totalClicks;
+      updateScoreOnLeaderboard(totalClicks);
+    }
+
+    function showLeaderboard() {
+      showScreen('leaderboardPanel');
+      fetchLeaderboard();
+
+      if(leaderboardInterval) clearInterval(leaderboardInterval);
+      leaderboardInterval = setInterval(fetchLeaderboard, 10000);
+    }
+
+    function fetchLeaderboard() {
+      const url = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=getLeaderboard";
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById('leaderboardList');
+          list.innerHTML = "";
+          data.slice(0, 10).forEach((entry, index) => {
+            const li = document.createElement('li');
+            li.innerText = `${entry.username} - ${entry.score} clicks`;
+            if(index === 0) li.classList.add('top-score');
+            list.appendChild(li);
+          });
+        });
+    }
+
+    function updateScoreOnLeaderboard(score) {
+      askUsername();
+      const url = `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=addScore&username=${encodeURIComponent(playerName)}&score=${score}`;
+      fetch(url).then(() => fetchLeaderboard());
+    }
+
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen, .container, .panel').forEach(el => el.style.display = 'none');
+      const target = document.getElementById(screenId);
+      if(target) target.style.display = 'block';
     }
   </script>
 </body>
 </html>
+
+
