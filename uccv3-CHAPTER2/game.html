@@ -378,7 +378,7 @@
     }
 
     function fetchLeaderboard() {
-      const url = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=getLeaderboard";
+      const url = "https://script.google.com/macros/s/AKfycbyDE0j3x_f5nh71zDUHbtsM1g20e2DINhsPdKzjyELngmIzrxqVu-yro9hTN1MQPIiw/exec?action=getLeaderboard";
       fetch(url)
         .then(res => res.json())
         .then(data => {
@@ -395,7 +395,7 @@
 
     function updateScoreOnLeaderboard(score) {
       askUsername();
-      const url = `https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=addScore&username=${encodeURIComponent(playerName)}&score=${score}`;
+      const url = `https://script.google.com/macros/s/AKfycbyDE0j3x_f5nh71zDUHbtsM1g20e2DINhsPdKzjyELngmIzrxqVu-yro9hTN1MQPIiw/exec?action=addScore&username=${encodeURIComponent(playerName)}&score=${score}`;
       fetch(url).then(() => fetchLeaderboard());
     }
 
