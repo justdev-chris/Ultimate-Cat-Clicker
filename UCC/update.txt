@@ -1,0 +1,51 @@
+ ⭐ Cat Power Level: <span id="powerLevel">1</span><br>
+      🧬 Evolution Level: <span id="evolutionLevel">0</span><br>
+      💎 Purr Crystals: <span id="purrCrystals">0</span><br>
+      🔥 Combo Meter: <span id="comboMeter">0</span>/100<br>
+      🎮 Mini Game Wins: <span id="minigameWins">0</span>
+    </div>
+
+    <!-- Adventure Mode Button -->
+    <div style="text-align: center; margin: 20px;">
+      <button onclick="startAdventure()" class="nav-btn" style="font-size: 1.2em; padding: 15px 30px; background: linear-gradient(45deg, #ff6b6b, #4ecdc4);">
+        🏰 Begin Epic Adventure! (Requires Power Level 5)
+      </button>
+    </div>
+  </div>
+
+  <!-- Load all JavaScript modules -->
+  <script src="js/game/main.js"></script>
+  <script src="js/game/shop.js"></script>
+  <script src="js/game/achievements.js"></script>
+  <script src="js/ui/display.js"></script>
+  <script src="js/ui/customization.js"></script>
+  <script src="js/minigames/memory.js"></script>
+  <script src="js/minigames/fishing.js"></script>
+  <script src="js/adventure/adventure.js"></script>
+
+  <script>
+    // store username locally
+    function setUsername() {
+      const name = document.getElementById('username').value.trim();
+      if(name) {
+        localStorage.setItem('catUsername', name);
+        alert('Username saved! 💖');
+      } else {
+        alert('Please enter a username, my lil catboy~ 🐾');
+      }
+    }
+
+    // fetch server status from PHP backend
+    fetch('https://your-infinityfree-domain.com/server.php') // <-- put your InfinityFree PHP URL here
+      .then(res => res.text())
+      .then(msg => {
+        console.log('Server says:', msg);
+        document.getElementById('serverStatus').innerText = '🐾 Server is running!';
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('serverStatus').innerText = '⚠️ Server not reachable!';
+      });
+  </script>
+</body>
+</html>
