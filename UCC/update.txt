@@ -1,4 +1,118 @@
- ⭐ Cat Power Level: <span id="powerLevel">1</span><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🐱 Ultimate Cat Clicker 🐱</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* small inline style for server status message */
+    #serverStatus {
+      text-align: center;
+      color: #4ecdc4;
+      margin: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="showScreen('game')">🎮 Game</button>
+    <button class="nav-btn" onclick="showScreen('minigames')">🎯 Mini Games</button>
+    <button class="nav-btn" onclick="startAdventure()">🏰 Adventure</button>
+    <button class="nav-btn" onclick="showScreen('credits')">📜 Credits</button>
+  </div>
+
+  <!-- Server status -->
+  <div id="serverStatus">Checking server...</div>
+
+  <!-- Username Input -->
+  <div style="text-align:center; margin: 15px;">
+    <label for="username">Enter your username:</label>
+    <input type="text" id="username" placeholder="Your Cat Name">
+    <button onclick="setUsername()">Save</button>
+  </div>
+
+  <!-- Lore Screen -->
+  <div id="loreScreen">
+    <h2>🐱 The Legend of Whiskers the Eternal 🌟</h2>
+    <p>
+      Long ago, Whiskers Nemesis possessed infinite power to generate fish treats through pure feline magic. But an evil vacuum cleaner sealed away this power, scattering it across dimensions.
+    </p>
+    <p>
+      Each click you make channels cosmic energy through Whiskers, slowly breaking the ancient curse. Assemble a team of magical helpers, unlock sacred achievements, and compete on the interdimensional leaderboard!
+    </p>
+    <p>
+      Will you become the ultimate Cat Clicking Champion and restore Whiskers to their full glory? The fate of all cat-kind rests in your clicking fingers! 🐾✨
+    </p>
+    <button onclick="startGame()">🚀 Accept the Sacred Quest! 🐾</button>
+  </div>
+
+  <!-- Credits Screen -->
+  <div id="creditsScreen" class="screen">
+    <div class="credits-content">
+      <h2>🏆 Credits & Thanks</h2>
+      <p><strong>Note:</strong> Thank you for playing my game! I have put much work into this project and I hope you enjoyed it. If you have any feedback or suggestions, please let me know. I would love to hear from you!</p>
+      <p><strong>-The Ultimate Cat Clicker Team</strong></p>
+
+      <div class="credits-list">
+        <h3>🎨 Credits:</h3>
+        <ul>
+          <li><strong>Cat Image:</strong> https://www.pngall.com/cat-emoji-png/</li>
+          <li><strong>Slide Images:</strong> Cat Warriors, PNGALL, Pixabay</li>
+          <li><strong>Font:</strong> Arial, sans-serif</li>
+          <li><strong>Icons:</strong> https://emojipedia.org/</li>
+          <li><strong>Game Engine:</strong> JavaScript, HTML5, CSS3</li>
+          <li><strong>Platform:</strong> Replit</li>
+        </ul>
+      </div>
+
+      <p><strong>🚀 Future Plans:</strong> I plan on adding more features in the future, such as a save system, more achievements, and enhanced multiplayer features.</p>
+
+      <p><strong>Thank you for playing my game! I hope you enjoyed it!</strong></p>
+      <p><em>-The Ultimate Cat Clicker Team</em></p>
+
+      <button class="nav-btn" onclick="showScreen('game')" style="margin-top: 20px;">🎮 Back to Game</button>
+    </div>
+  </div>
+
+  <!-- Mini Games Screen -->
+  <div id="minigamesScreen" class="screen">
+    <div class="minigame-container">
+      <h2>🎯 Cat Memory Challenge</h2>
+      <p>Remember the pattern of glowing cats! Score: <span id="memoryScore">0</span></p>
+      <div class="minigame-grid" id="memoryGrid"></div>
+      <button class="nav-btn" onclick="startMemoryGame()">🎮 Start Game</button>
+      <button class="nav-btn" onclick="showScreen('game')">🏠 Back to Main</button>
+    </div>
+
+    <div class="minigame-container">
+      <h2>🐟 Fish Catch Challenge</h2>
+      <p>Catch as many fish as possible in 30 seconds! Best: <span id="fishCatchBest">0</span></p>
+      <div style="height: 200px; position: relative; background: rgba(0,100,200,0.3); border-radius: 15px; margin: 20px 0;" id="fishCatchArea">
+        <div id="fishCatchScore" style="position: absolute; top: 10px; left: 10px; font-weight: bold;">Score: 0</div>
+        <div id="fishCatchTimer" style="position: absolute; top: 10px; right: 10px; font-weight: bold;">30s</div>
+      </div>
+      <button class="nav-btn" onclick="startFishCatch()">🎮 Start Fishing</button>
+    </div>
+  </div>
+
+  <!-- Main Game Container -->
+  <div class="container" id="gameContainer">
+    <h1>🌟 Ultimate Cat Clicker 🌟</h1>
+
+    <div id="clicker" onclick="clickCat()">
+      <img src="cat.png" alt="Magical Cat" id="catImage">
+    </div>
+
+    <div id="stats">
+      🐟 Fish Treats: <span id="fish">0</span><br>
+      ⚡ Treats/sec: <span id="fps">0</span><br>
+      🎯 Total Clicks: <span id="totalClicks">0</span><br>
+      🏆 Achievements: <span id="achievementCount">0</span>/<span id="totalAchievements">15</span><br>
+      ⭐ Cat Power Level: <span id="powerLevel">1</span><br>
       🧬 Evolution Level: <span id="evolutionLevel">0</span><br>
       💎 Purr Crystals: <span id="purrCrystals">0</span><br>
       🔥 Combo Meter: <span id="comboMeter">0</span>/100<br>
