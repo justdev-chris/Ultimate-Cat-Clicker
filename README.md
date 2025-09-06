@@ -27,5 +27,11 @@ In this addicting clicker-meets-adventure game, you start off as a broke alley c
 
 ---
 
+# Deployment 
+
+Instructions on how to deploy Ultimate Cat Clicker should be in https://github.com/justdev-chris/justdev-chris.github.io/blob/main/README.md
+
+---
+
 ## Made with <3 by justdev-chris
 Ultimate Cat Clicker V3 js released, will update later on stay tuned for updates.
