@@ -314,5 +314,41 @@
   <script src="js/minigames/memory.js"></script>
   <script src="js/minigames/fishing.js"></script>
   <script src="js/adventure/adventure.js"></script>
+  <script>
+  // === UCC Frontend JS for click tracking ===
+let username = null; // Will hold the player's username
+
+// Prompt user for username
+function askUsername() {
+    if (!username) {
+        const input = prompt("Enter your username for the leaderboard:");
+        if (input && input.trim() !== "") {
+            username = input.trim();
+            console.log(`Username set: ${username}`);
+        } else {
+            alert("You must enter a username!");
+            askUsername();
+        }
+    }
+}
+
+// Send click to backend
+function trackClick() {
+    askUsername();
+
+    if (!username) return; // just in case
+
+    fetch("https://visa20.ct.ws/ucclead.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Click tracked:", data);
+    })
+    .catch(err => console.error("Error sending click:", err));
+}
+</script>
 </body>
 </html>
