@@ -1,5 +1,5 @@
 // Backend endpoint
-const backendURL = 'https://visa20.ct.ws/leaderboard-ucc.php'; // ← replace with your actual URL
+const backendURL = 'https://visa20.ct.ws/ucc.php'; // no
 
 // Prompt for username once
 let username = localStorage.getItem('username');
