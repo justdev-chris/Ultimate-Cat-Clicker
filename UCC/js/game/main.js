@@ -1,3 +1,12 @@
+// Backend endpoint
+const backendURL = 'https://visa20.ct.ws/ucclead.php'; // ← replace with your actual URL
+
+// Prompt for username once
+let username = localStorage.getItem('username');
+if (!username) {
+  username = prompt('Enter your cat name:') || 'AnonymousCat';
+  localStorage.setItem('username', username);
+}
 
 // Game data
 let fish = 0;
@@ -25,7 +34,7 @@ let wizardCount = 0, wizardCost = 1000;
 let portalCount = 0, portalCost = 5000;
 let dragonCount = 0, dragonCost = 25000;
 
-// Story progression
+// Story progression text
 const storyStages = [
   "The ancient cat stirs... Your first clicks have awakened something powerful. Whiskers' eyes begin to glow with mystical energy!",
   "🌟 Whiskers purrs with growing power! The curse weakens as cosmic fish energy flows through the dimensions!",
@@ -46,46 +55,42 @@ dailyQuests = [
 function clickCat() {
   fish += 1;
   totalClicks += 1;
-  
+
   // Update combo meter
   comboMeter = Math.min(comboMeter + 1, 100);
   if (comboMeter >= 100) {
     showCatFrenzy();
     comboMeter = 0;
   }
-  
+
   // Click effect
   const effect = document.createElement('div');
   effect.className = 'click-effect';
   effect.textContent = '+1 🐟';
   document.getElementById('clicker').appendChild(effect);
-  
   setTimeout(() => effect.remove(), 1000);
 
   // Random floating fish
-  if (Math.random() < 0.3) {
-    createFloatingFish();
-  }
+  if (Math.random() < 0.3) createFloatingFish();
 
-  // Check for villain invasion
-  if (Math.random() < 0.001 && !isVillainInvasion) {
-    startVillainInvasion();
-  }
+  // Possibly start villain invasion
+  if (Math.random() < 0.001 && !isVillainInvasion) startVillainInvasion();
 
   updateDisplay();
+  submitClicks(); // send username+clicks to backend
 }
 
 function defendClick() {
   if (!isVillainInvasion) return;
-  
+
   villainDefenseClicks++;
   document.getElementById('defenseProgress').textContent = villainDefenseClicks;
-  
-  const target = parseInt(document.getElementById('defenseTarget').textContent);
+
+  const target = parseInt(document.getElementById('defenseTarget').textContent, 10);
   if (villainDefenseClicks >= target) {
     isVillainInvasion = false;
     document.getElementById('villainInvasion').style.display = 'none';
-    fish += 1000; // Reward for defending
+    fish += 1000; // reward
     showNotification('🏆 Villain defeated! +1000 fish!', 'success');
   }
 }
@@ -94,11 +99,11 @@ function startVillainInvasion() {
   isVillainInvasion = true;
   villainDefenseClicks = 0;
   const target = 50;
-  
+
   document.getElementById('villainInvasion').style.display = 'block';
   document.getElementById('defenseTarget').textContent = target;
   document.getElementById('defenseProgress').textContent = '0';
-  
+
   let timeLeft = 30;
   const timer = setInterval(() => {
     timeLeft--;
@@ -106,7 +111,6 @@ function startVillainInvasion() {
     if (timeLeft <= 0 || !isVillainInvasion) {
       clearInterval(timer);
       if (isVillainInvasion) {
-        // Failed to defend
         fish = Math.max(0, fish - 500);
         isVillainInvasion = false;
         document.getElementById('villainInvasion').style.display = 'none';
@@ -118,24 +122,20 @@ function startVillainInvasion() {
 
 function prestige() {
   if (fish < 1000000) return;
-  
-  if (confirm('Are you sure you want to prestige? This will reset all progress but give you Purr Crystals!')) {
+  if (confirm('Prestige resets progress but grants Purr Crystals. Proceed?')) {
     const crystals = Math.floor(fish / 100000);
     purrCrystals += crystals;
-    
-    // Reset progress
-    fish = 0;
-    fishPerSecond = 0;
-    totalClicks = 0;
-    powerLevel = 1;
-    evolutionLevel = 0;
+
+    // reset
+    fish = 0; fishPerSecond = 0; totalClicks = 0;
+    powerLevel = 1; evolutionLevel = 0;
     cursorCount = 0; cursorCost = 10;
     yarnCount = 0; yarnCost = 50;
     roboCount = 0; roboCost = 200;
     wizardCount = 0; wizardCost = 1000;
     portalCount = 0; portalCost = 5000;
     dragonCount = 0; dragonCost = 25000;
-    
+
     showNotification(`✨ Prestiged! Gained ${crystals} Purr Crystals!`, 'success');
     updateDisplay();
   }
@@ -154,15 +154,14 @@ function secretClick(location) {
 function showCatFrenzy() {
   const frenzyDiv = document.createElement('div');
   frenzyDiv.style.cssText = `
-    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4); color: white; padding: 30px;
-    border-radius: 20px; z-index: 2000; text-align: center; font-size: 1.5em;
-    animation: pulse 0.5s infinite; border: 3px solid gold;
+    position: fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+    background:linear-gradient(45deg,#ff6b6b,#4ecdc4); color:white; padding:30px;
+    border-radius:20px; z-index:2000; text-align:center; font-size:1.5em;
+    animation:pulse 0.5s infinite; border:3px solid gold;
   `;
   frenzyDiv.innerHTML = '⚡ CAT FRENZY ACTIVATED! ⚡<br>Auto-clicking for 10 seconds!';
   document.body.appendChild(frenzyDiv);
-  
-  // Auto-click for 10 seconds
+
   let frenzyTime = 10;
   const frenzyInterval = setInterval(() => {
     fish += 10;
@@ -171,26 +170,69 @@ function showCatFrenzy() {
       clearInterval(frenzyInterval);
       frenzyDiv.remove();
     }
+    updateDisplay();
   }, 100);
 }
 
 function createFloatingFish() {
-  const fish = document.createElement('div');
-  fish.className = 'floating-fish';
-  fish.textContent = '🐟';
-  fish.style.left = Math.random() * (window.innerWidth - 50) + 'px';
-  fish.style.top = Math.random() * (window.innerHeight - 50) + 'px';
-  document.body.appendChild(fish);
-  
-  setTimeout(() => fish.remove(), 3000);
+  const f = document.createElement('div');
+  f.className = 'floating-fish';
+  f.textContent = '🐟';
+  f.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+  f.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+  document.body.appendChild(f);
+  setTimeout(() => f.remove(), 3000);
 }
 
-// Auto-collect fish
+// ——— Backend integration ———
+
+function submitClicks() {
+  fetch(backendURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'submitClicks',
+      username: username,
+      clicks: totalClicks
+    })
+  })
+  .then(r => r.json())
+  .then(json => {
+    if (json.status !== 'success') console.error('Submit error:', json.message);
+  })
+  .catch(err => console.error('Network error on submitClicks:', err));
+}
+
+function fetchLeaderboard() {
+  fetch(backendURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'getLeaderboard' })
+  })
+  .then(r => r.json())
+  .then(json => {
+    if (json.status === 'success') {
+      const lb = document.getElementById('leaderboard');
+      lb.innerHTML = json.leaderboard
+        .map((e,i) => `${i+1}. ${e.username}: ${e.clicks}`)
+        .join('<br>');
+    } else {
+      console.error('Leaderboard error:', json.message);
+    }
+  })
+  .catch(err => console.error('Network error on fetchLeaderboard:', err));
+}
+
+// Auto-collect and periodic backend calls
 setInterval(() => {
   fish += fishPerSecond / 10;
   updateDisplay();
 }, 100);
 
+setInterval(submitClicks, 5000);
+setInterval(fetchLeaderboard, 30000);
+
+// Game initialization
 function startGame() {
   document.getElementById("loreScreen").style.display = "none";
   initializeAchievements();
@@ -201,11 +243,13 @@ function startGame() {
   updateSkinSelector();
   updateQuestDisplay();
   updateLoreDisplay();
-  showSlide(0); // Initialize slideshow
+  showSlide(0);
 }
 
-// Initialize stars when page loads
 window.addEventListener('load', () => {
+  startGame();
+  fetchLeaderboard();
+  // If loreScreen hidden, keep stars alive
   if (document.getElementById("loreScreen").style.display === "none") {
     createStars();
   }
